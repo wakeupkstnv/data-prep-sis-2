@@ -1,0 +1,30 @@
+1. Records collected from GBIF API                  1053
+2. Messages published to Kafka (valid records)      1053
+   + deliberately broken demo messages                 3
+3. Messages consumed and deserialized               1053
+   rejected by consumer (bad JSON / contract)          3
+4. Pandera: valid records                           1052
+   Pandera: invalid real records (quarantined)         1
+   Pandera: invalid TEST records detected              3
+5. Records after cleaning                           1031
+   duplicates removed by cleaner                      21
+6. Records stored in SQLite                         1031
+
+[PASS] collected == published
+[PASS] published == consumed
+[PASS] broken demo messages all rejected
+[PASS] consumed == valid + invalid real
+[PASS] all test records detected
+[PASS] valid - duplicates == cleaned
+[PASS] cleaned == stored
+[PASS] DB ids == processed ids
+[PASS] DB ids subset of raw API ids
+[PASS] no test records in DB
+[PASS] no duplicate keys in DB
+[PASS] second load inserted/updated nothing
+
+Explanation of differences:
+  * 3 extra messages were broken on purpose; the consumer rejected them, so consumed = published valid records.
+  * 1 real record(s) failed Pandera rules and were quarantined to data/invalid_records.csv; the test records were also rejected and never left the validator.
+  * 21 records were the same observation (same taxon, coordinates and day) published twice, usually by different datasets; one copy was kept.
+  * cleaned == stored: the loader writes every cleaned row exactly once (PRIMARY KEY gbif_id).

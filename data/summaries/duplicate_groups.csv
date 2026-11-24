@@ -1,0 +1,36 @@
+gbif_id,scientific_name,lat_r,lon_r,event_day,dataset_name,coord_uncertainty_m
+4093012981,Amygdalus nana L.,48.887,58.3706,2015-08-16,,100.0
+4093012982,Amygdalus nana L.,48.887,58.3706,2015-08-16,,100.0
+4093012986,Amygdalus nana L.,48.887,58.3706,2015-08-16,,100.0
+4093012987,Amygdalus nana L.,48.887,58.3706,2015-08-16,,100.0
+4093012984,Amygdalus nana L.,50.7762,56.9257,2015-08-14,,100.0
+4093012985,Amygdalus nana L.,50.7762,56.9257,2015-08-14,,100.0
+1671794342,"Aquila nipalensis Hodgson, 1833",47.25,78.75,2016-06-08,,30000.0
+1671794353,"Aquila nipalensis Hodgson, 1833",47.25,78.75,2016-06-08,,30000.0
+1671811375,"Aquila nipalensis Hodgson, 1833",49.75,59.25,2015-06-17,,30000.0
+1671811378,"Aquila nipalensis Hodgson, 1833",49.75,59.25,2015-06-17,,30000.0
+1671811374,"Aquila nipalensis Hodgson, 1833",49.75,59.25,2015-06-17,,30000.0
+1671811377,"Aquila nipalensis Hodgson, 1833",50.25,55.75,2015-06-19,,30000.0
+1671811379,"Aquila nipalensis Hodgson, 1833",50.25,55.75,2015-06-19,,30000.0
+4981201843,Arnebia decumbens (Vent.) Coss. & Kralik,44.2082,51.9884,2015-04-22,,100.0
+4981201845,Arnebia decumbens (Vent.) Coss. & Kralik,44.2082,51.9884,2015-04-22,,100.0
+4981201841,Arnebia decumbens (Vent.) Coss. & Kralik,44.2082,51.9884,2015-04-22,,100.0
+4538550136,Artemisia gurganica (Krasch.) Filatova,43.7713,51.1449,2016-10-15,,100.0
+4538550137,Artemisia gurganica (Krasch.) Filatova,43.7713,51.1449,2016-10-15,,100.0
+2249807535,BOLD:AAC9671,47.6415,66.3759,2015-01-12,,
+2249806456,BOLD:AAC9671,47.6415,66.3759,2015-01-12,,
+2249807403,BOLD:AAC9671,47.6415,66.3759,2015-01-12,,
+4875768602,Chamaenerion angustifolium (L.) Scop.,49.4291,75.48,2021-06-09,,250.0
+4875768597,Chamaenerion angustifolium (L.) Scop.,49.4291,75.48,2021-06-09,,250.0
+4528235484,"Galerida cristata (Linnaeus, 1758)",41.2614,68.5543,2017-04-29,iNaturalist research-grade observations,2.0
+4528013514,"Galerida cristata (Linnaeus, 1758)",41.2614,68.5543,2017-04-29,iNaturalist research-grade observations,8.0
+3031942963,"Gomphocerus sibiricus (Linnaeus, 1767)",53.0175,70.3604,2019-07-08,iNaturalist research-grade observations,51.0
+3031943960,"Gomphocerus sibiricus (Linnaeus, 1767)",53.0175,70.3604,2019-07-08,iNaturalist research-grade observations,46.0
+4981201419,Poa bulbosa L.,43.1659,53.9193,2015-04-20,,100.0
+4981201422,Poa bulbosa L.,43.1659,53.9193,2015-04-20,,100.0
+4981201425,Poa bulbosa L.,43.1659,53.9193,2015-04-20,,100.0
+4875768590,Polygala comosa Schkuhr,49.4466,75.4888,2021-06-03,,150.0
+4875768589,Polygala comosa Schkuhr,49.4466,75.4888,2021-06-03,,150.0
+3008817302,"Utaxatax stolbovi Tuzovskij, 2020",42.4172,70.4729,2019-10-08,,
+3008817301,"Utaxatax stolbovi Tuzovskij, 2020",42.4172,70.4729,2019-10-08,,
+3008817303,"Utaxatax stolbovi Tuzovskij, 2020",42.4172,70.4729,2019-10-08,,

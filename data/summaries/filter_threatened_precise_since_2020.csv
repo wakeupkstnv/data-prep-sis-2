@@ -1,0 +1,8 @@
+gbif_id,species,iucn_category,region,event_date,coord_uncertainty_m
+3174756325,Aquila nipalensis,EN,Atyrau Region,2020-08-31,150.0
+3267254581,Aythya ferina,VU,Almaty Region,2020-11-28,150.0
+4261877340,Aythya ferina,VU,Mangystau Region,2022-11-06,150.0
+4628304238,Aquila nipalensis,EN,Zhambyl Region,2023-10-05,150.0
+4769757026,Aythya ferina,VU,Turkistan Region,2023-01-18,150.0
+4827052792,Aquila nipalensis,EN,Almaty Region,2023-11-12,150.0
+5164389557,Falco vespertinus,VU,Akmola Region,2025-05-21,7.0

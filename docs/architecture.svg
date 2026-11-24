@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+    <style>
+      .box{fill:#ffffff;stroke:#2a78d6;stroke-width:1.6;rx:8}
+      .kafka{fill:#fff4ec;stroke:#eb6834;stroke-width:1.6}
+      .store{fill:#eef8f3;stroke:#1baf7a;stroke-width:1.6}
+      .t{font-weight:bold;fill:#0b0b0b}
+      .s{fill:#52514e;font-size:11px}
+      .l{stroke:#52514e;stroke-width:1.5;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="900" height="520" fill="#fcfcfb"/>
+
+  <!-- row 1 -->
+  <rect class="box" x="20" y="30" width="150" height="70" rx="8"/>
+  <text class="t" x="95" y="58" text-anchor="middle">GBIF REST API</text>
+  <text class="s" x="95" y="76" text-anchor="middle">/v1/occurrence/search</text>
+  <text class="s" x="95" y="91" text-anchor="middle">country=KZ, 2015–2025</text>
+
+  <rect class="box" x="210" y="30" width="150" height="70" rx="8"/>
+  <text class="t" x="285" y="58" text-anchor="middle">api_client.py</text>
+  <text class="s" x="285" y="76" text-anchor="middle">requests + retries</text>
+  <text class="s" x="285" y="91" text-anchor="middle">132 year×month strata</text>
+
+  <rect class="store" x="400" y="30" width="150" height="70" rx="8"/>
+  <text class="t" x="475" y="58" text-anchor="middle">Raw files</text>
+  <text class="s" x="475" y="76" text-anchor="middle">raw/*.jsonl (untouched)</text>
+  <text class="s" x="475" y="91" text-anchor="middle">raw_data.csv</text>
+
+  <rect class="box" x="590" y="30" width="150" height="70" rx="8"/>
+  <text class="t" x="665" y="58" text-anchor="middle">producer.py</text>
+  <text class="s" x="665" y="76" text-anchor="middle">FastStream publisher</text>
+  <text class="s" x="665" y="91" text-anchor="middle">Pydantic → JSON bytes</text>
+
+  <path class="l" d="M170,65 H206"/>
+  <path class="l" d="M360,65 H396"/>
+  <path class="l" d="M550,65 H586"/>
+
+  <!-- kafka -->
+  <rect class="kafka" x="570" y="140" width="310" height="96" rx="8"/>
+  <text class="t" x="725" y="162" text-anchor="middle">Apache Kafka 3.9 broker (Docker, KRaft)</text>
+  <text class="s" x="725" y="180" text-anchor="middle">topic gbif-kz-occurrences · key = gbif_id</text>
+  <rect x="590" y="192" width="80" height="30" fill="#ffffff" stroke="#eb6834"/>
+  <text class="s" x="630" y="211" text-anchor="middle">partition 0</text>
+  <rect x="685" y="192" width="80" height="30" fill="#ffffff" stroke="#eb6834"/>
+  <text class="s" x="725" y="211" text-anchor="middle">partition 1</text>
+  <rect x="780" y="192" width="80" height="30" fill="#ffffff" stroke="#eb6834"/>
+  <text class="s" x="820" y="211" text-anchor="middle">partition 2</text>
+  <path class="l" d="M665,100 V136"/>
+
+  <rect class="box" x="360" y="153" width="170" height="70" rx="8"/>
+  <text class="t" x="445" y="180" text-anchor="middle">consumer.py</text>
+  <text class="s" x="445" y="198" text-anchor="middle">group sis2-gbif-consumer</text>
+  <text class="s" x="445" y="213" text-anchor="middle">JSON → Pydantic, stop on idle</text>
+  <path class="l" d="M570,188 H534"/>
+
+  <rect class="box" x="130" y="153" width="190" height="70" rx="8"/>
+  <text class="t" x="225" y="180" text-anchor="middle">validator.py (Pandera)</text>
+  <text class="s" x="225" y="198" text-anchor="middle">14 columns + 1 row rule</text>
+  <text class="s" x="225" y="213" text-anchor="middle">+3 test records</text>
+  <path class="l" d="M360,188 H324"/>
+
+  <rect class="store" x="20" y="270" width="190" height="56" rx="8"/>
+  <text class="t" x="115" y="294" text-anchor="middle">invalid_records.csv</text>
+  <text class="s" x="115" y="311" text-anchor="middle">quarantine + error reasons</text>
+  <path class="l" d="M180,223 L140,266"/>
+
+  <rect class="box" x="250" y="270" width="210" height="70" rx="8"/>
+  <text class="t" x="355" y="297" text-anchor="middle">cleaner.py (pandas+NumPy)</text>
+  <text class="s" x="355" y="315" text-anchor="middle">dedupe, types, text, NaN,</text>
+  <text class="s" x="355" y="330" text-anchor="middle">features, GroupBy, pivot/melt</text>
+  <path class="l" d="M260,223 L320,266"/>
+
+  <rect class="box" x="500" y="270" width="190" height="70" rx="8"/>
+  <text class="t" x="595" y="297" text-anchor="middle">loader.py</text>
+  <text class="s" x="595" y="315" text-anchor="middle">UPSERT on PRIMARY KEY</text>
+  <text class="s" x="595" y="330" text-anchor="middle">row_hash · run twice</text>
+  <path class="l" d="M460,305 H496"/>
+
+  <rect class="store" x="730" y="270" width="150" height="70" rx="8"/>
+  <text class="t" x="805" y="297" text-anchor="middle">SQLite3</text>
+  <text class="s" x="805" y="315" text-anchor="middle">data/output.db</text>
+  <text class="s" x="805" y="330" text-anchor="middle">occurrences, load_runs</text>
+  <path class="l" d="M690,305 H726"/>
+
+  <rect class="box" x="500" y="390" width="190" height="70" rx="8"/>
+  <text class="t" x="595" y="417" text-anchor="middle">analysis.py</text>
+  <text class="s" x="595" y="435" text-anchor="middle">EDA from SQLite</text>
+  <text class="s" x="595" y="450" text-anchor="middle">6 figures (Matplotlib/Seaborn)</text>
+  <path class="l" d="M805,340 V425 H694"/>
+
+  <rect class="box" x="250" y="390" width="210" height="70" rx="8"/>
+  <text class="t" x="355" y="417" text-anchor="middle">main.py – verification</text>
+  <text class="s" x="355" y="435" text-anchor="middle">pipeline_stats.json</text>
+  <text class="s" x="355" y="450" text-anchor="middle">12 PASS/FAIL checks</text>
+  <path class="l" d="M500,425 H464"/>
+
+  <text class="s" x="20" y="500">Blue = Python module · Orange = Kafka · Green = stored data. main.py runs the stages in this order; each module can also run alone.</text>
+</svg>

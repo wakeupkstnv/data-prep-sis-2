@@ -1,0 +1,17 @@
+taxon_class,records,species,threatened,median_uncertainty_m,mean_dist_almaty_km
+Aves,712,214,26,150.0,698.9
+Magnoliopsida,174,134,0,150.0,480.0
+Insecta,58,51,0,95.5,495.3
+Arachnida,21,18,0,150.0,217.5
+Liliopsida,19,14,0,122.0,721.5
+Mammalia,13,10,0,30.0,714.6
+Pinopsida,12,5,0,83.5,329.7
+Amphibia,6,2,0,5.0,1123.1
+Squamata,6,3,0,63.0,1045.6
+Bacilli,3,3,0,150.0,450.0
+Leotiomycetes,2,2,0,14.5,848.4
+Alphaproteobacteria,1,1,0,150.0,1229.8
+Gammaproteobacteria,1,1,0,150.0,2185.2
+Monjiviricetes,1,1,0,150.0,9.6
+Testudines,1,1,1,27317.0,674.4
+Unknown,1,1,0,61.0,10.8

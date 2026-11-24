@@ -1,0 +1,65 @@
+region,season,records
+Akmola Region,Autumn,6
+Akmola Region,Spring,9
+Akmola Region,Summer,17
+Akmola Region,Winter,15
+Aktobe Region,Autumn,6
+Aktobe Region,Spring,7
+Aktobe Region,Summer,14
+Aktobe Region,Winter,1
+Almaty City,Autumn,53
+Almaty City,Spring,38
+Almaty City,Summer,40
+Almaty City,Winter,77
+Almaty Region,Autumn,77
+Almaty Region,Spring,87
+Almaty Region,Summer,91
+Almaty Region,Winter,76
+Atyrau Region,Autumn,32
+Atyrau Region,Spring,16
+Atyrau Region,Summer,20
+Atyrau Region,Winter,27
+East Kazakhstan Region,Autumn,14
+East Kazakhstan Region,Spring,1
+East Kazakhstan Region,Summer,19
+East Kazakhstan Region,Winter,11
+Karaganda Region,Autumn,3
+Karaganda Region,Spring,8
+Karaganda Region,Summer,29
+Karaganda Region,Winter,3
+Kostanay Region,Autumn,1
+Kostanay Region,Spring,0
+Kostanay Region,Summer,0
+Kostanay Region,Winter,2
+Kyzylorda Region,Autumn,4
+Kyzylorda Region,Spring,1
+Kyzylorda Region,Summer,0
+Kyzylorda Region,Winter,3
+Mangystau Region,Autumn,22
+Mangystau Region,Spring,21
+Mangystau Region,Summer,1
+Mangystau Region,Winter,11
+North Kazakhstan Region,Autumn,3
+North Kazakhstan Region,Spring,0
+North Kazakhstan Region,Summer,1
+North Kazakhstan Region,Winter,1
+Pavlodar Region,Autumn,0
+Pavlodar Region,Spring,2
+Pavlodar Region,Summer,1
+Pavlodar Region,Winter,0
+Turkistan Region,Autumn,26
+Turkistan Region,Spring,64
+Turkistan Region,Summer,6
+Turkistan Region,Winter,17
+Unknown,Autumn,0
+Unknown,Spring,0
+Unknown,Summer,0
+Unknown,Winter,4
+West Kazakhstan Region,Autumn,1
+West Kazakhstan Region,Spring,3
+West Kazakhstan Region,Summer,8
+West Kazakhstan Region,Winter,5
+Zhambyl Region,Autumn,13
+Zhambyl Region,Spring,2
+Zhambyl Region,Summer,6
+Zhambyl Region,Winter,5

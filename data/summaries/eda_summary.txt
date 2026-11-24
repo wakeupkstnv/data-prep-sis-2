@@ -1,0 +1,113 @@
+=== 1. DIMENSIONS ===
+rows = 1031, columns = 46
+
+=== 2. DATA TYPES ===
+str               14
+float64           10
+int64              8
+category           8
+bool               5
+datetime64[us]     1
+
+=== 3. DESCRIPTIVE STATISTICS (numerical) ===
+                      count     mean      std    min     25%     50%      75%      max
+latitude             1031.0    45.22     2.83  41.03   43.20   43.67    47.10     55.0
+longitude            1031.0    71.36     9.72  49.52   68.56   76.62    77.08     86.5
+coord_uncertainty_m  1031.0  1162.74  5369.47   1.00  150.00  150.00   150.00  48736.0
+individual_count     1031.0     8.86   100.56   1.00    1.00    1.00     2.00   3000.0
+dist_almaty_km       1031.0   641.65   709.11   0.60   33.10  334.80   946.90   2185.2
+dist_center_km       1031.0   895.88   228.11  58.70  753.70  941.50  1041.20   1440.5
+issue_count          1031.0     3.03     0.88   0.00    2.00    3.00     4.00      6.0
+media_count          1031.0     0.66     1.39   0.00    0.00    0.00     1.00     17.0
+
+skewness:
+ latitude                1.09
+longitude              -1.14
+coord_uncertainty_m     5.51
+individual_count       26.68
+dist_almaty_km          0.99
+dist_center_km         -0.58
+issue_count            -0.50
+media_count             5.26
+
+=== 4. CATEGORICAL STATISTICS ===
+                count unique                top  freq
+kingdom          1031      5           Animalia   818
+taxon_class      1031     16               Aves   712
+basis_of_record  1031      4  HUMAN_OBSERVATION  1002
+iucn_category    1031      6                 LC   659
+region           1031     16      Almaty Region   331
+season           1031      4             Autumn   261
+dataset_name     1031      4              eBird   455
+
+kingdom:
+            n     %
+kingdom            
+Animalia  818  79.3
+Plantae   205  19.9
+Bacteria    5   0.5
+Fungi       2   0.2
+Viruses     1   0.1
+
+basis_of_record:
+                       n     %
+basis_of_record               
+HUMAN_OBSERVATION   1002  97.2
+PRESERVED_SPECIMEN    18   1.7
+MATERIAL_SAMPLE        9   0.9
+MATERIAL_CITATION      2   0.2
+
+iucn_category:
+                 n     %
+iucn_category           
+LC             659  63.9
+NE             331  32.1
+EN              18   1.7
+NT              12   1.2
+VU               9   0.9
+DD               2   0.2
+
+precision_class:
+                   n     %
+precision_class           
+medium (<=1 km)  793  76.9
+high (<=100 m)   187  18.1
+low (>1 km)       51   4.9
+
+unique species: 461, families: 151, orders: 69
+
+=== 5. GROUPED ANALYSIS ===
+               records  species  median_unc_m  share_high_quality
+taxon_class                                                      
+Aves               712      214         150.0                50.1
+Magnoliopsida      174      134         150.0                92.5
+Insecta             58       51          95.5                86.2
+Arachnida           21       18         150.0                81.0
+Liliopsida          19       14         122.0                84.2
+Mammalia            13       10          30.0                69.2
+Pinopsida           12        5          83.5               100.0
+Amphibia             6        2           5.0               100.0
+
+kingdom share per season (%):
+ kingdom  Animalia  Bacteria  Fungi  Plantae  Viruses
+season                                              
+Winter       93.4       1.9    0.0      4.7      0.0
+Spring       78.4       0.0    0.0     21.6      0.0
+Summer       63.2       0.0    0.0     36.8      0.0
+Autumn       82.0       0.0    0.8     16.9      0.4
+
+coordinate uncertainty by dataset (m):
+                                          count  median    mean
+dataset_name                                                  
+eBird                                      455   150.0   150.0
+iNaturalist research-grade observations    347   150.0  1446.5
+RU-BIRDS.RU research-grade observations    146   150.0   150.0
+Unknown dataset                             83   100.0  7309.6
+
+correlation matrix:
+                    latitude  longitude  dist_almaty_km  log10_uncertainty  issue_count
+latitude               1.00      -0.28            0.55              -0.03        -0.11
+longitude             -0.28       1.00           -0.91              -0.02        -0.15
+dist_almaty_km         0.55      -0.91            1.00               0.02         0.09
+log10_uncertainty     -0.03      -0.02            0.02               1.00        -0.00
+issue_count           -0.11      -0.15            0.09              -0.00         1.00

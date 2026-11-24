@@ -1,0 +1,21 @@
+index,column,check,failure_case,gbif_id,is_test_record
+1053,<row>,year does not match event_date,year=2012,-1,True
+1055,individual_count,coerce_dtype('float64'),many,-3,True
+1053,gbif_id,gbif_id must be positive,-1,-1,True
+1055,iucn_category,"isin(['LC', 'NT', 'VU', 'EN', 'CR', 'EW', 'EX', 'DD', 'NE'])",XX,-3,True
+1054,gbif_id,gbif_id must be positive,-2,-2,True
+1055,gbif_id,gbif_id must be positive,-3,-3,True
+405,scientific_name,not_nullable,,1914072271,False
+1054,scientific_name,not_nullable,,-2,True
+405,kingdom,not_nullable,,1914072271,False
+1053,kingdom,"isin(['Animalia', 'Plantae', 'Fungi', 'Bacteria', 'Chromista', 'Protozoa', 'Archaea', 'Viruses'])",Aliens,-1,True
+1054,basis_of_record,"isin(['HUMAN_OBSERVATION', 'MACHINE_OBSERVATION', 'OBSERVATION', 'PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'LIVING_SPECIMEN', 'MATERIAL_SAMPLE', 'MATERIAL_CITATION', 'OCCURRENCE'])",GUESS,-2,True
+1053,latitude,latitude outside Kazakhstan,95.0,-1,True
+1054,event_date,event_date is in the future,2999-01-01,-2,True
+1053,longitude,longitude outside Kazakhstan,10.0,-1,True
+1053,coord_uncertainty_m,uncertainty must be 0..50000 m,-5.0,-1,True
+1055,individual_count,dtype('float64'),many,-3,True
+1054,year,"in_range(1900, 2026)",2999,-2,True
+1055,year,"in_range(1900, 2026)",1700,-3,True
+1054,month,"in_range(1, 12)",13,-2,True
+1055,event_date,event_date is not a valid ISO date,not-a-date,-3,True

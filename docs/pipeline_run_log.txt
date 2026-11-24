@@ -1,0 +1,336 @@
+
+==============================================================================
+ STAGE 1 - API data collection (GBIF Occurrence API)
+==============================================================================
+skipped - reusing /Users/tamirlan/Desktop/study/dataprep/sis2/data/raw/gbif_raw_records.jsonl
+
+==============================================================================
+ STAGE 2 - Kafka streaming (FastStream Producer -> topic -> Consumer)
+==============================================================================
+2026-11-24 17:19:00,864 producer   INFO Topic 'gbif-kz-occurrences' already exists
+2026-11-24 17:19:00,939 producer   INFO ... 100/1053 messages acknowledged
+2026-11-24 17:19:00,966 producer   INFO ... 200/1053 messages acknowledged
+2026-11-24 17:19:00,993 producer   INFO ... 300/1053 messages acknowledged
+2026-11-24 17:19:01,018 producer   INFO ... 400/1053 messages acknowledged
+2026-11-24 17:19:01,043 producer   INFO ... 500/1053 messages acknowledged
+2026-11-24 17:19:01,068 producer   INFO ... 600/1053 messages acknowledged
+2026-11-24 17:19:01,094 producer   INFO ... 700/1053 messages acknowledged
+2026-11-24 17:19:01,120 producer   INFO ... 800/1053 messages acknowledged
+2026-11-24 17:19:01,146 producer   INFO ... 900/1053 messages acknowledged
+2026-11-24 17:19:01,173 producer   INFO ... 1000/1053 messages acknowledged
+2026-11-24 17:19:01,200 producer   INFO ... 1053/1053 messages acknowledged
+2026-11-24 17:19:01,224 producer   WARNING Injected invalid demo message: b'this is not JSON'
+2026-11-24 17:19:01,249 producer   WARNING Injected invalid demo message: b'{"run_id": "demo", "seq": 0, "record": {"scientific_name": "'
+2026-11-24 17:19:01,274 producer   WARNING Injected invalid demo message: b'{"run_id": "demo", "seq": 1, "produced_at": "yesterday", "re'
+topic 'gbif-kz-occurrences' reset -> empty finite stream
+published: 1053 (+3 broken demo), failed: 0, per partition: {'0': 310, '1': 367, '2': 376}
+2026-11-24 17:19:01,328 [32mINFO[0m     - gbif-kz-occurrences |            - Consumer sis2-gbif-consumer-7d6a5e80-b83e-404b-bc71-f56e0419b6ba assigned to partitions: (TopicPartition(topic='gbif-kz-occurrences', partition=2), TopicPartition(topic='gbif-kz-occurrences', partition=0), TopicPartition(topic='gbif-kz-occurrences', partition=1))
+2026-11-24 17:19:01,328 consumer   INFO Subscribed to 'gbif-kz-occurrences' as group 'sis2-gbif-consumer' (idle timeout 10s)
+2026-11-24 17:19:01,378 consumer   INFO ... 200 messages consumed
+2026-11-24 17:19:01,406 consumer   INFO ... 400 messages consumed
+2026-11-24 17:19:01,434 consumer   INFO ... 600 messages consumed
+2026-11-24 17:19:01,453 consumer   WARNING Rejected message that violates the KafkaEnvelope contract: Input should be a valid dictionary or instance of KafkaEnvelope
+2026-11-24 17:19:01,457 consumer   WARNING Rejected message that violates the KafkaEnvelope contract: Input should be greater than or equal to 1
+2026-11-24 17:19:01,457 consumer   WARNING Rejected message that violates the KafkaEnvelope contract: Input should be a valid datetime or date, input is too short
+2026-11-24 17:19:01,465 consumer   INFO ... 800 messages consumed
+2026-11-24 17:19:01,492 consumer   INFO ... 1000 messages consumed
+2026-11-24 17:19:11,851 consumer   INFO No messages for 10s -> end of finite stream
+2026-11-24 17:19:11,875 consumer   INFO Wrote 1053 records -> /Users/tamirlan/Desktop/study/dataprep/sis2/data/consumed_records.csv
+2026-11-24 17:19:11,881 [32mINFO[0m     -      |            - callback for Task-1142 is being executed...
+consumed: 1053, rejected: 3
+topic state: {'topic': 'gbif-kz-occurrences', 'group': 'sis2-gbif-consumer', 'partitions': {0: {'end_offset': 310, 'committed': 310, 'lag': 0}, 1: {'end_offset': 367, 'committed': 367, 'lag': 0}, 2: {'end_offset': 379, 'committed': 379, 'lag': 0}}, 'messages_in_topic': 1056}
+
+==============================================================================
+ STAGE 3 - Pandera validation
+==============================================================================
+valid: 1052, invalid: 4 (of which test records: 3)
+
+==============================================================================
+ STAGE 4 - Cleaning and transformation (pandas + NumPy)
+==============================================================================
+2026-11-24 17:19:12,111 cleaner    INFO Loaded 1052 validated records
+2026-11-24 17:19:12,112 cleaner    INFO Columns with missing values:
+                     missing  missing_pct
+coord_uncertainty_m      587        55.80
+individual_count         505        48.00
+institution_code         239        22.72
+state_province           137        13.02
+dataset_name             102         9.70
+species                   10         0.95
+taxon_order                8         0.76
+day                        8         0.76
+family                     2         0.19
+genus                      2         0.19
+taxon_class                1         0.10
+2026-11-24 17:19:12,118 cleaner    INFO Duplicates: {'duplicate_gbif_ids_removed': 0, 'same_observation_duplicates_removed': 21, 'rows_in_duplicate_groups': 35}
+2026-11-24 17:19:12,129 cleaner    INFO Region names: 36 raw spellings -> 15 canonical regions
+2026-11-24 17:19:12,136 cleaner    INFO Missing-value handling: {'region_filled_by_nearest_neighbour': 129, 'region_still_unknown': 4, 'species_filled_as_genus_sp': 8, 'coord_uncertainty_imputed': 583, 'individual_count_imputed': 487, 'missing_after_cleaning': 0}
+
+=== CLEANING SUMMARY ===
+records in / out          : 1052 / 1031
+duplicates removed        : {'duplicate_gbif_ids_removed': 0, 'same_observation_duplicates_removed': 21, 'rows_in_duplicate_groups': 35}
+missing-value handling    : {'region_filled_by_nearest_neighbour': 129, 'region_still_unknown': 4, 'species_filled_as_genus_sp': 8, 'coord_uncertainty_imputed': 583, 'individual_count_imputed': 487, 'missing_after_cleaning': 0}
+multi-condition filters   : {'threatened & uncertainty<=1km & year>=2020': 7, 'Aves & Summer & >300 km from Almaty': 64, 'Plantae & has photo & high quality': 168}
+
+GroupBy taxon_class (top 8):
+                records  species  threatened  median_uncertainty_m  mean_dist_almaty_km
+taxon_class                                                                           
+Aves               712      214          26                 150.0                698.9
+Magnoliopsida      174      134           0                 150.0                480.0
+Insecta             58       51           0                  95.5                495.3
+Arachnida           21       18           0                 150.0                217.5
+Liliopsida          19       14           0                 122.0                721.5
+Mammalia            13       10           0                  30.0                714.6
+Pinopsida           12        5           0                  83.5                329.7
+Amphibia             6        2           0                   5.0               1123.1
+
+pivot_table season x kingdom:
+ kingdom  Animalia  Bacteria  Fungi  Plantae  Viruses
+season                                              
+Winter        241         5      0       12        0
+Spring        203         0      0       56        0
+Summer        160         0      0       93        0
+Autumn        214         0      2       44        1
+
+==============================================================================
+ STAGE 5 - SQLite3 loading, executed twice (idempotency test)
+==============================================================================
+2026-11-24 17:19:12,189 loader     INFO Load result: {'rows_in_file': 1031, 'inserted': 1031, 'updated': 0, 'unchanged': 0, 'rows_in_table': 1031}
+2026-11-24 17:19:12,211 loader     INFO Load result: {'rows_in_file': 1031, 'inserted': 0, 'updated': 0, 'unchanged': 1031, 'rows_in_table': 1031}
+
+=== IDEMPOTENCY TEST ===
+run 1: {'rows_in_file': 1031, 'inserted': 1031, 'updated': 0, 'unchanged': 0, 'rows_in_table': 1031}
+run 2: {'rows_in_file': 1031, 'inserted': 0, 'updated': 0, 'unchanged': 1031, 'rows_in_table': 1031}
+table fingerprint run 1 = cddea814dc23d807, run 2 = cddea814dc23d807
+RESULT: PASSED - no duplicates, no changes
+
+-- total_rows
+ total_rows
+       1031
+
+-- duplicate_primary_keys (must be 0 rows)
+(0 rows)
+
+-- duplicate_observations (must be 0 rows)
+(0 rows)
+
+-- null_check_key_columns (must be all 0)
+ null_names  null_lat  null_dates  null_regions
+          0         0           0             0
+
+-- rows_by_kingdom
+ kingdom  records  species
+Animalia      818      300
+ Plantae      205      153
+Bacteria        5        5
+   Fungi        2        2
+ Viruses        1        1
+
+-- rows_by_year
+ year  records
+ 2015       80
+ 2016       93
+ 2017       95
+ 2018       96
+ 2019       93
+ 2020       96
+ 2021       94
+ 2022       96
+ 2023       96
+ 2024       96
+ 2025       96
+
+-- top_regions
+                region  records  species  avg_uncertainty_m
+         Almaty Region      331      205              447.5
+           Almaty City      208      125              892.4
+      Turkistan Region      113       89              805.6
+         Atyrau Region       95       45             2663.7
+      Mangystau Region       55       49              127.5
+         Akmola Region       47       36              311.4
+East Kazakhstan Region       45       34             4893.7
+      Karaganda Region       43       39             1638.8
+         Aktobe Region       28       22             5393.5
+        Zhambyl Region       26       23              113.1
+
+-- threatened_species
+            species iucn_category  records                                                                                          regions
+  Aquila nipalensis            EN       16 East Kazakhstan Region,Aktobe Region,Almaty Region,Turkistan Region,Atyrau Region,Zhambyl Region
+      Aythya ferina            VU        3                                                  Almaty Region,Mangystau Region,Turkistan Region
+  Falco vespertinus            VU        2                                                             West Kazakhstan Region,Akmola Region
+Oxyura leucocephala            EN        2                                                                   Almaty Region,Turkistan Region
+     Aquila heliaca            VU        1                                                                                    Aktobe Region
+Calidris ferruginea            VU        1                                                                                 Turkistan Region
+   Podiceps auritus            VU        1                                                                                    Atyrau Region
+Testudo horsfieldii            VU        1                                                                                 Turkistan Region
+
+-- date_and_coordinate_range
+first_date  last_date   min_lat  max_lat  min_lon   max_lon
+2015-01-01 2025-12-31 41.031578 54.99514    49.52 86.504313
+
+-- load_history
+ run_id                started_at  rows_in_file  inserted  updated  unchanged  rows_in_table
+      1 2026-11-24T12:19:12+00:00          1031      1031        0          0           1031
+      2 2026-11-24T12:19:12+00:00          1031         0        0       1031           1031
+
+==============================================================================
+ STAGE 6 - Exploratory data analysis
+==============================================================================
+2026-11-24 17:19:12,343 analysis   INFO saved /Users/tamirlan/Desktop/study/dataprep/sis2/figures/fig1_monthly_class_composition.png
+2026-11-24 17:19:12,446 analysis   INFO saved /Users/tamirlan/Desktop/study/dataprep/sis2/figures/fig2_region_species_richness.png
+2026-11-24 17:19:12,520 analysis   INFO saved /Users/tamirlan/Desktop/study/dataprep/sis2/figures/fig3_occurrence_map.png
+2026-11-24 17:19:12,635 analysis   INFO saved /Users/tamirlan/Desktop/study/dataprep/sis2/figures/fig4_iucn_threatened.png
+2026-11-24 17:19:12,779 analysis   INFO saved /Users/tamirlan/Desktop/study/dataprep/sis2/figures/fig5_uncertainty_by_dataset.png
+2026-11-24 17:19:12,838 analysis   INFO saved /Users/tamirlan/Desktop/study/dataprep/sis2/figures/fig6_gbif_records_per_year.png
+=== 1. DIMENSIONS ===
+rows = 1031, columns = 46
+
+=== 2. DATA TYPES ===
+str               14
+float64           10
+int64              8
+category           8
+bool               5
+datetime64[us]     1
+
+=== 3. DESCRIPTIVE STATISTICS (numerical) ===
+                      count     mean      std    min     25%     50%      75%      max
+latitude             1031.0    45.22     2.83  41.03   43.20   43.67    47.10     55.0
+longitude            1031.0    71.36     9.72  49.52   68.56   76.62    77.08     86.5
+coord_uncertainty_m  1031.0  1162.74  5369.47   1.00  150.00  150.00   150.00  48736.0
+individual_count     1031.0     8.86   100.56   1.00    1.00    1.00     2.00   3000.0
+dist_almaty_km       1031.0   641.65   709.11   0.60   33.10  334.80   946.90   2185.2
+dist_center_km       1031.0   895.88   228.11  58.70  753.70  941.50  1041.20   1440.5
+issue_count          1031.0     3.03     0.88   0.00    2.00    3.00     4.00      6.0
+media_count          1031.0     0.66     1.39   0.00    0.00    0.00     1.00     17.0
+
+skewness:
+ latitude                1.09
+longitude              -1.14
+coord_uncertainty_m     5.51
+individual_count       26.68
+dist_almaty_km          0.99
+dist_center_km         -0.58
+issue_count            -0.50
+media_count             5.26
+
+=== 4. CATEGORICAL STATISTICS ===
+                count unique                top  freq
+kingdom          1031      5           Animalia   818
+taxon_class      1031     16               Aves   712
+basis_of_record  1031      4  HUMAN_OBSERVATION  1002
+iucn_category    1031      6                 LC   659
+region           1031     16      Almaty Region   331
+season           1031      4             Autumn   261
+dataset_name     1031      4              eBird   455
+
+kingdom:
+            n     %
+kingdom            
+Animalia  818  79.3
+Plantae   205  19.9
+Bacteria    5   0.5
+Fungi       2   0.2
+Viruses     1   0.1
+
+basis_of_record:
+                       n     %
+basis_of_record               
+HUMAN_OBSERVATION   1002  97.2
+PRESERVED_SPECIMEN    18   1.7
+MATERIAL_SAMPLE        9   0.9
+MATERIAL_CITATION      2   0.2
+
+iucn_category:
+                 n     %
+iucn_category           
+LC             659  63.9
+NE             331  32.1
+EN              18   1.7
+NT              12   1.2
+VU               9   0.9
+DD               2   0.2
+
+precision_class:
+                   n     %
+precision_class           
+medium (<=1 km)  793  76.9
+high (<=100 m)   187  18.1
+low (>1 km)       51   4.9
+
+unique species: 461, families: 151, orders: 69
+
+=== 5. GROUPED ANALYSIS ===
+               records  species  median_unc_m  share_high_quality
+taxon_class                                                      
+Aves               712      214         150.0                50.1
+Magnoliopsida      174      134         150.0                92.5
+Insecta             58       51          95.5                86.2
+Arachnida           21       18         150.0                81.0
+Liliopsida          19       14         122.0                84.2
+Mammalia            13       10          30.0                69.2
+Pinopsida           12        5          83.5               100.0
+Amphibia             6        2           5.0               100.0
+
+kingdom share per season (%):
+ kingdom  Animalia  Bacteria  Fungi  Plantae  Viruses
+season                                              
+Winter       93.4       1.9    0.0      4.7      0.0
+Spring       78.4       0.0    0.0     21.6      0.0
+Summer       63.2       0.0    0.0     36.8      0.0
+Autumn       82.0       0.0    0.8     16.9      0.4
+
+coordinate uncertainty by dataset (m):
+                                          count  median    mean
+dataset_name                                                  
+eBird                                      455   150.0   150.0
+iNaturalist research-grade observations    347   150.0  1446.5
+RU-BIRDS.RU research-grade observations    146   150.0   150.0
+Unknown dataset                             83   100.0  7309.6
+
+correlation matrix:
+                    latitude  longitude  dist_almaty_km  log10_uncertainty  issue_count
+latitude               1.00      -0.28            0.55              -0.03        -0.11
+longitude             -0.28       1.00           -0.91              -0.02        -0.15
+dist_almaty_km         0.55      -0.91            1.00               0.02         0.09
+log10_uncertainty     -0.03      -0.02            0.02               1.00        -0.00
+issue_count           -0.11      -0.15            0.09              -0.00         1.00
+
+
+Saved 6 figures to /Users/tamirlan/Desktop/study/dataprep/sis2/figures
+
+==============================================================================
+ STAGE 7 - Pipeline verification
+==============================================================================
+1. Records collected from GBIF API                  1053
+2. Messages published to Kafka (valid records)      1053
+   + deliberately broken demo messages                 3
+3. Messages consumed and deserialized               1053
+   rejected by consumer (bad JSON / contract)          3
+4. Pandera: valid records                           1052
+   Pandera: invalid real records (quarantined)         1
+   Pandera: invalid TEST records detected              3
+5. Records after cleaning                           1031
+   duplicates removed by cleaner                      21
+6. Records stored in SQLite                         1031
+
+[PASS] collected == published
+[PASS] published == consumed
+[PASS] broken demo messages all rejected
+[PASS] consumed == valid + invalid real
+[PASS] all test records detected
+[PASS] valid - duplicates == cleaned
+[PASS] cleaned == stored
+[PASS] DB ids == processed ids
+[PASS] DB ids subset of raw API ids
+[PASS] no test records in DB
+[PASS] no duplicate keys in DB
+[PASS] second load inserted/updated nothing
+
+Explanation of differences:
+  * 3 extra messages were broken on purpose; the consumer rejected them, so consumed = published valid records.
+  * 1 real record(s) failed Pandera rules and were quarantined to data/invalid_records.csv; the test records were also rejected and never left the validator.
+  * 21 records were the same observation (same taxon, coordinates and day) published twice, usually by different datasets; one copy was kept.
+  * cleaned == stored: the loader writes every cleaned row exactly once (PRIMARY KEY gbif_id).
+
+Pipeline finished in 12s - verification PASS

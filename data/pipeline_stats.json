@@ -1,0 +1,114 @@
+{
+  "collection": {
+    "endpoint": "https://api.gbif.org/v1/occurrence/search",
+    "years": "2015-2025",
+    "sampling": "8 records per (year, month), random offset < 3000, seed=42",
+    "strata": 132,
+    "records_collected": 1053,
+    "failed_strata": [],
+    "malformed_records": 0,
+    "columns": 28,
+    "updated_at": "2026-11-24T12:17:20+00:00"
+  },
+  "producer": {
+    "run_id": "f7d23a79813e",
+    "topic": "gbif-kz-occurrences",
+    "records_loaded": 1053,
+    "malformed_raw_lines": 0,
+    "messages_published": 1053,
+    "invalid_demo_messages": 3,
+    "messages_failed": 0,
+    "messages_per_partition": {
+      "0": 310,
+      "1": 367,
+      "2": 376
+    },
+    "updated_at": "2026-11-24T12:19:01+00:00"
+  },
+  "consumer": {
+    "topic": "gbif-kz-occurrences",
+    "group_id": "sis2-gbif-consumer",
+    "messages_consumed": 1053,
+    "deserialization_errors": 3,
+    "producer_runs_seen": {
+      "f7d23a79813e": 1053
+    },
+    "updated_at": "2026-11-24T12:19:11+00:00"
+  },
+  "validation": {
+    "records_received": 1053,
+    "test_records_added": 3,
+    "rows_validated": 1056,
+    "valid_records": 1052,
+    "invalid_real_records": 1,
+    "invalid_test_records_detected": 3,
+    "failures_total": 20,
+    "failures_by_rule_real_data": {
+      "kingdom :: not_nullable": 1,
+      "scientific_name :: not_nullable": 1
+    },
+    "handling_strategy": "quarantine invalid rows to invalid_records.csv; continue with valid rows",
+    "updated_at": "2026-11-24T12:19:12+00:00"
+  },
+  "cleaning": {
+    "records_in": 1052,
+    "records_out": 1031,
+    "duplicate_gbif_ids_removed": 0,
+    "same_observation_duplicates_removed": 21,
+    "rows_in_duplicate_groups": 35,
+    "raw_region_spellings": 36,
+    "canonical_regions": 16,
+    "region_filled_by_nearest_neighbour": 129,
+    "region_still_unknown": 4,
+    "species_filled_as_genus_sp": 8,
+    "coord_uncertainty_imputed": 583,
+    "individual_count_imputed": 487,
+    "missing_after_cleaning": 0,
+    "filters": {
+      "threatened & uncertainty<=1km & year>=2020": 7,
+      "Aves & Summer & >300 km from Almaty": 64,
+      "Plantae & has photo & high quality": 168
+    },
+    "columns_out": 43,
+    "updated_at": "2026-11-24T12:19:12+00:00"
+  },
+  "loading": {
+    "processed_records": 1031,
+    "stored_records": 1031,
+    "match": true,
+    "idempotency": {
+      "run_1": {
+        "rows_in_file": 1031,
+        "inserted": 1031,
+        "updated": 0,
+        "unchanged": 0,
+        "rows_in_table": 1031
+      },
+      "run_2": {
+        "rows_in_file": 1031,
+        "inserted": 0,
+        "updated": 0,
+        "unchanged": 1031,
+        "rows_in_table": 1031
+      },
+      "idempotent": true
+    },
+    "updated_at": "2026-11-24T12:19:12+00:00"
+  },
+  "analysis": {
+    "rows": 1031,
+    "columns": 46,
+    "species": 461,
+    "threatened_records": 27,
+    "share_birds_pct": 69.1,
+    "figures": [
+      "fig1_monthly_class_composition.png",
+      "fig2_region_species_richness.png",
+      "fig3_occurrence_map.png",
+      "fig4_iucn_threatened.png",
+      "fig5_uncertainty_by_dataset.png",
+      "fig6_gbif_records_per_year.png"
+    ],
+    "updated_at": "2026-11-24T12:19:12+00:00"
+  }
+}
