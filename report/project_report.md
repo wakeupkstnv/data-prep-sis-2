@@ -91,7 +91,10 @@ The final procedure is therefore a **stratified random sample**:
 1. For every year 2015–2025 a facet request (`limit=0&facet=month`) returns the number of KZ records in each month.
 2. For each of the 132 (year, month) strata a random offset below `min(count, 3000)` is drawn with a fixed seed (42), so
    the sample is reproducible. Deep offsets are very slow on GBIF (a test request with offset 61 240 took ~37 s), so offsets are kept below 3 000.
-3. One page of 8 records is downloaded per stratum. The 132 requests run in 4 parallel threads.
+3. One page of 8 records is downloaded per stratum. All HTTP work is asynchronous (`httpx.AsyncClient` + `asyncio.gather`):
+   the task is I/O-bound, so one event loop replaces threads, and an `asyncio.Semaphore(4)` keeps at most four requests
+   in flight so that GBIF does not answer with HTTP 429. `gather` returns results in plan order, so the output is
+   deterministic.
 4. A facet query per year stores the total number of records for Q5.
 5. The untouched JSON records are written to `data/raw/gbif_raw_records.jsonl`; a flattened copy with 28 columns goes
    to `data/raw_data.csv`. Later stages never modify these files.
@@ -99,23 +102,25 @@ The final procedure is therefore a **stratified random sample**:
 **Error handling** (`get_json`):
 
 ```python
-for attempt in range(1, settings.gbif_max_retries + 1):
+for attempt in range(1, settings.gbif_max_retries + 1):          # 5 attempts
+    resp = None
     try:
-        resp = session.get(settings.gbif_base_url, params=params, timeout=settings.gbif_timeout_s)
+        async with limiter:                                          # max 4 requests in flight
+            resp = await client.get(settings.gbif_base_url, params=params)
         if resp.status_code == 200:
             return resp.json()
         if resp.status_code == 429 or resp.status_code >= 500:     # temporary -> retry
             last_error = GBIFRequestError(f"HTTP {resp.status_code}: {resp.text[:200]}")
         else:                                                         # 4xx -> fail fast
             raise GBIFRequestError(f"HTTP {resp.status_code} for {params}: {resp.text[:200]}")
-    except (requests.ConnectionError, requests.Timeout) as exc:
+    except httpx.TransportError as exc:                              # connection / DNS / timeout
         last_error = exc
     except ValueError as exc:                                         # body is not JSON
         last_error = GBIFRequestError(f"Invalid JSON response: {exc}")
-    time.sleep(2 ** attempt)                                          # exponential back-off
+    await asyncio.sleep(_retry_delay(resp, attempt))                 # 2, 4, 8, 16 s or Retry-After
 ```
 
-If one stratum still fails it is logged and skipped (`failed_strata`), so a single bad request does not stop the run.
+If one stratum still fails it is logged and skipped (`asyncio.gather(..., return_exceptions=True)` → `failed_strata`), so a single bad request does not stop the run.
 Records that do not fit the Pydantic `OccurrenceRecord` model (e.g. no `gbifID`) are counted as malformed.
 
 ## 2.4 Dataset size and structure
@@ -795,7 +800,8 @@ Pipeline finished in 12s - verification PASS
 | Problem | Solution |
 |---|---|
 | First sample contained almost only January records (GBIF result order) | stratified year × month sampling with random offsets |
-| Deep offsets (e.g. 61 240) took ~37 s per request and exceeded the timeout | offsets limited to < 3 000; 4 parallel threads → collection in < 1 min |
+| Deep offsets (e.g. 61 240) took ~37 s per request and exceeded the timeout | offsets limited to < 3 000; 4 concurrent async requests → collection in < 1 min |
+| Repeated runs triggered GBIF rate limiting (HTTP 429 "Too many API requests"); with 3 attempts some strata were lost | concurrency capped by a semaphore, 5 attempts with exponential back-off (2–16 s, `Retry-After` honoured); retried requests succeed and the same 1 053 records are collected |
 | Consumer group remembered old offsets from tests | `kafka_admin reset` / `main.py` resets the topic for a clean finite stream |
 | Rejected "poison" messages were re-read on every run | the error handler also commits the offset of the rejected message |
 | A DataFrame-level Pandera check was reported once per column (36 duplicates) | collapsed to one `<row>` failure per record |

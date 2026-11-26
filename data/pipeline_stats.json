@@ -48,7 +48,7 @@
       "scientific_name :: not_nullable": 1
     },
     "handling_strategy": "quarantine invalid rows to invalid_records.csv; continue with valid rows",
-    "updated_at": "2026-11-24T12:19:12+00:00"
+    "updated_at": "2026-11-26T06:10:41+00:00"
   },
   "cleaning": {
     "records_in": 1052,

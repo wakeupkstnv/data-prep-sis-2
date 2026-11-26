@@ -22,7 +22,7 @@
 
   <rect class="box" x="210" y="30" width="150" height="70" rx="8"/>
   <text class="t" x="285" y="58" text-anchor="middle">api_client.py</text>
-  <text class="s" x="285" y="76" text-anchor="middle">requests + retries</text>
+  <text class="s" x="285" y="76" text-anchor="middle">httpx async + retries</text>
   <text class="s" x="285" y="91" text-anchor="middle">132 year×month strata</text>
 
   <rect class="store" x="400" y="30" width="150" height="70" rx="8"/>

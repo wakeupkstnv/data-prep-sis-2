@@ -28,9 +28,9 @@ class Settings(BaseSettings):
     gbif_records_per_month: int = Field(8, gt=0, le=300)
     gbif_max_random_offset: int = Field(3000, ge=0, le=10000)  # deep offsets are very slow on GBIF
     gbif_random_seed: int = 42
-    gbif_workers: int = Field(4, ge=1, le=8)  # parallel HTTP requests
+    gbif_workers: int = Field(4, ge=1, le=8)  # max concurrent HTTP requests (asyncio semaphore)
     gbif_timeout_s: float = Field(30, gt=0)
-    gbif_max_retries: int = Field(3, ge=1)
+    gbif_max_retries: int = Field(5, ge=1)  # back-off 2, 4, 8, 16 s
 
     # --- Kafka -----------------------------------------------------------
     kafka_bootstrap_servers: str = "localhost:9092"

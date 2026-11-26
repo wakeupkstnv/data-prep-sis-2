@@ -82,13 +82,16 @@ def save(fig: plt.Figure, name: str) -> str:
 def describe(df: pd.DataFrame) -> dict:
     print("=== 1. DIMENSIONS ===")
     print(f"rows = {df.shape[0]}, columns = {df.shape[1]}")
+
     print("\n=== 2. DATA TYPES ===")
     print(df.dtypes.astype(str).str.replace(r"category.*", "category", regex=True).value_counts().to_string())
+    
     print("\n=== 3. DESCRIPTIVE STATISTICS (numerical) ===")
     num_cols = ["latitude", "longitude", "coord_uncertainty_m", "individual_count", "dist_almaty_km",
                 "dist_center_km", "issue_count", "media_count"]
     print(df[num_cols].describe().T.round(2).to_string())
     print("\nskewness:\n", df[num_cols].skew().round(2).to_string())
+    
     print("\n=== 4. CATEGORICAL STATISTICS ===")
     cat_cols = ["kingdom", "taxon_class", "basis_of_record", "iucn_category", "region", "season", "dataset_name"]
     print(df[cat_cols].describe().T.to_string())

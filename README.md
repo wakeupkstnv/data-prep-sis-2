@@ -71,7 +71,7 @@ sis2/
 | Python | ≥ 3.12 (developed on 3.14) |
 | Docker + Docker Compose | any recent version (for the Kafka broker) |
 | Apache Kafka | 3.9.1 (`apache/kafka` image) |
-| Python libraries | requests, pandas 3, NumPy 2, Pandera 0.36, Pydantic 2, pydantic-settings, FastStream 0.7 (aiokafka), Matplotlib, Seaborn |
+| Python libraries | httpx (asyncio), pandas 3, NumPy 2, Pandera 0.36, Pydantic 2, pydantic-settings, FastStream 0.7 (aiokafka), Matplotlib, Seaborn |
 
 Internet access to `api.gbif.org` is required for stage 1 (no API key needed). Without internet, run with `--skip-collect`
 to reuse the raw data committed in `data/raw/`.
@@ -79,7 +79,7 @@ to reuse the raw data committed in `data/raw/`.
 ## 3. Installation
 
 ```bash
-git clone <repo-url> && cd sis2
+git clone https://github.com/wakeupkstnv/data-prep-sis-2.git && cd data-prep-sis-2
 
 # install uv once: https://docs.astral.sh/uv/getting-started/installation/
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -102,6 +102,8 @@ Everything has a working default, so no configuration is needed. To change somet
 | `GBIF_YEAR_FROM` / `GBIF_YEAR_TO` | `2015` / `2025` | period |
 | `GBIF_RECORDS_PER_MONTH` | `8` | records per (year, month) stratum → 11 × 12 × 8 ≈ 1 056 |
 | `GBIF_RANDOM_SEED` | `42` | makes the random offsets reproducible |
+| `GBIF_WORKERS` | `4` | max concurrent HTTP requests (asyncio semaphore) |
+| `GBIF_MAX_RETRIES` | `5` | attempts per request on 429 / 5xx / network errors |
 | `KAFKA_BOOTSTRAP_SERVERS` | `localhost:9092` | broker address |
 | `KAFKA_TOPIC` | `gbif-kz-occurrences` | topic name |
 | `KAFKA_TOPIC_PARTITIONS` | `3` | partitions when the topic is created |
