@@ -10,10 +10,9 @@
 |---|---|
 | **Course** | Data Collection & Preparation |
 | **Project** | SIS2 — Data Streaming and Validation Pipeline |
-| **Group number** | [GROUP NUMBER] |
-| **Group members** | Tamirlan Kustanaev; [MEMBER 2]; [MEMBER 3] |
+| **Group members** | Tamirlan Kustanaev; Li Stanislav |
 | **Data source** | GBIF Occurrence API — <https://www.gbif.org/occurrence/search?country=KZ> |
-| **Repository** | [GITHUB REPOSITORY URL] |
+| **Repository** | <https://github.com/wakeupkstnv/data-prep-sis-2> |
 | **Submission date** | 24 November 2026 |
 
 </div>
@@ -839,11 +838,8 @@ validation (Pydantic) from dataset-level validation (Pandera), and normalizing m
 
 # 11. Individual Contributions
 
-| Member | Components | Responsibilities |
-|---|---|---|
-| Tamirlan Kustanaev | [e.g. API collection, Kafka producer/consumer, Docker setup] | [describe] |
-| [MEMBER 2] | [e.g. Pandera validation, cleaning & transformation] | [describe] |
-| [MEMBER 3] | [e.g. SQLite loader, EDA & figures, report] | [describe] |
+The group members are Tamirlan Kustanaev and Li Stanislav. Individual responsibilities should be documented after
+the team confirms its actual division of work; the repository alone does not establish who completed each component.
 
 # 12. References
 
